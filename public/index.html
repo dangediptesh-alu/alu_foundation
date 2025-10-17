@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALU FOUNDATION Registration</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <h1>ALU FOUNDATION – <br>Learn | Grow | Achieve<br><br>Registration Form  </h1>
+  <h2 style="text-align: center;">
+  Register now for the Exam Competition!<br><br>
+  Be in top 5 to get Appreciation Letter based on your MSBTE Winter 25 Results
+</h2>
+
+  <form id="regForm" action="/register" method="POST">
+    <input type="text" name="fullname" placeholder="Full Name" required>
+    <input type="text" name="college" placeholder="College Name" required>
+    <input type="email" name="email" placeholder="Email" required>
+    <input type="text" name="city" placeholder="City" required>
+    <input type="text" name="whatsapp" placeholder="WhatsApp Number" required>
+    <select name="year" required>
+      <option value="">Select Year</option>
+      <option value="FY">FY</option>
+      <option value="SY">SY</option>
+      <option value="TY">TY</option>
+    </select>
+    <select name="gender">
+      <option value="">Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Other">Other</option>
+    </select>
+    <textarea name="message" placeholder="Any message (optional)"></textarea>
+    <button type="submit">Register Now</button>
+  </form>
+  <div id="response"></div>
+</div>
+
+<script>
+const form = document.getElementById('regForm');
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    const res = await fetch('/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    });
+
+    const text = await res.text();
+    document.getElementById('response').innerText = text;
+    form.reset();
+});
+</script>
+</body>
+</html>
